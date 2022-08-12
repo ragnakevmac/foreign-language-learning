@@ -1,24 +1,31 @@
-import React from 'react';
-import Intro from './components/Intro';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import Intro from './components/Intro';
+import TranslatedTextForm from './components/TranslatedTextForm';
+import TranslatedTextDisplay from './components/TranslatedTextDisplay';
 
-const num: number = 123;
-console.log('hello!!!', num);
 
 function App() {
+
+  const [translatedText, setTranslatedText] = useState<string>('');
+  const displaySubmittedText = (translatedText: string) => {
+    console.log(translatedText);
+    setTranslatedText(translatedText);
+  }
+
+
   return (
     <div className="App">
       <Intro person="Kevin" />
-
-      <form>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-
-
+      <div className="textAreas">
+        <TranslatedTextForm onSubmitTranslatedText={displaySubmittedText} />
+        <TranslatedTextForm onSubmitTranslatedText={displaySubmittedText} />
+        <TranslatedTextForm onSubmitTranslatedText={displaySubmittedText} />
+      </div>
+      <br />
+      <br />
+      <TranslatedTextDisplay translatedText={translatedText} />
+        
     </div>
   );
 }
