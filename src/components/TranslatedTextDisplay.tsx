@@ -5,7 +5,7 @@ import TranslatedText from '../models/translatedText';
 
 function TranslatedTextDisplay({ translatedText }: TranslatedText): JSX.Element {
     return (
-        <div className='textDisplay'>
+        <div className='translatedTextDisplay'>
             Display of your translated text:
             <p>{translatedText}</p>
         </div>

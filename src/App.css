@@ -37,13 +37,28 @@
   }
 }
 
-.textDisplay {
-  color: blue;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300, 1fr));
+
+.textToTranslateForm {
+  color: black;
 }
 
-.textForm {
+.translatedTextForm {
+  color: blue;
+}
+
+
+.textToTranslateDisplay {
+  color: black;
+}
+
+.translatedTextDisplay {
+  color: blue;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300, 1fr)); */
+}
+
+
+/* .textForm {
   padding: 10px;
 }
 
@@ -51,4 +66,4 @@
   display:flex; 
   flex-direction:row;
   justify-content: center;
-}
+} */
