@@ -39,11 +39,11 @@
 
 
 .textToTranslateForm {
-  color: black;
+  color: white;
 }
 
 .translatedTextForm {
-  color: blue;
+  color: white;
 }
 
 
@@ -52,7 +52,7 @@
 }
 
 .translatedTextDisplay {
-  color: blue;
+  color: black;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300, 1fr)); */
 }
@@ -67,3 +67,9 @@
   flex-direction:row;
   justify-content: center;
 } */
+
+textarea {
+  background-color: rgb(42, 41, 44);
+  color: white;
+  font-size: 2em;
+}

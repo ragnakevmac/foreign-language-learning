@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 import './App.css';
 import Intro from './components/Intro';
 import TextForm from './components/TextForm';
@@ -15,10 +16,28 @@ function App() {
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
 
+  const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string) => {
+
+    const url = '/translation'
+    const data = {
+      textToTranslate: textToTranslate,
+      translatedText: translatedText,
+    };
+
+    Axios.post(url, data).then((res) => {
+      console.log(res.data.suggestedTranslation);
+      setSuggestedTranslation(res.data.suggestedTranslation);
+    }).catch((error) => {
+      console.log(error);
+    });
+    
+  }
+
   const displaySubmittedText = (texts: Texts) => {
     setTextToTranslate(texts.textToTranslate);
     setTranslatedText(texts.translatedText);
-    setSuggestedTranslation(texts.textToTranslate)
+    fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText)
+    
   }
 
 
