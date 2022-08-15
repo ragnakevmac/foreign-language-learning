@@ -16,7 +16,7 @@ function App() {
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
 
-  const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string) => {
+  const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string) => {
 
     const url = '/translation'
     const data = {
@@ -25,8 +25,7 @@ function App() {
     };
 
     Axios.post(url, data).then((res) => {
-      console.log(res.data.suggestedTranslation);
-      setSuggestedTranslation(res.data.suggestedTranslation);
+      generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
     }).catch((error) => {
       console.log(error);
     });
@@ -36,7 +35,7 @@ function App() {
   const displaySubmittedText = (texts: Texts) => {
     setTextToTranslate(texts.textToTranslate);
     setTranslatedText(texts.translatedText);
-    fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText)
+    fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText, texts.generatedTextEngVerFromWanikani)
     
   }
 
