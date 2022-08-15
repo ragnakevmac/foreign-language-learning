@@ -22,6 +22,7 @@ function App() {
     const data = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
     };
 
     Axios.post(url, data).then((res) => {

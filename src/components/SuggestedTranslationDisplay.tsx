@@ -15,7 +15,8 @@ function SuggestedTranslationDisplay({ suggestedTranslation }: SuggestedTranslat
             //   className='translatedTextForm'
               placeholder='Your suggested translation will appear here'  
               style={{width: "400px", height: "200px"}}
-              defaultValue={suggestedTranslation}
+              value={suggestedTranslation}
+              readOnly
             />
         </div>
     )

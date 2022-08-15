@@ -18,7 +18,6 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
         const textToTranslate = inputRefTextToTranslate.current!.value;
         const translatedText = inputRefTranslatedText.current!.value;
         onSubmitTexts({textToTranslate, translatedText, generatedTextEngVerFromWanikani}); //display
-        setGeneratedTextEngVer(''); //reset
     }
 
     function handleGenerate(e: React.MouseEvent<HTMLButtonElement>) {
@@ -31,11 +30,12 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
       }).catch((error) => {
         console.log(error);
       });
-
-
-
     }
 
+    function handleOnChange(val: string) {
+      setGeneratedText(val);
+      setGeneratedTextEngVer(''); //reset
+    }
 
 
     return (
@@ -52,7 +52,7 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
               style={{width: "400px", height: "200px"}}
               ref={inputRefTextToTranslate}
               value={generatedText}
-              onChange={(e) => setGeneratedText(e.target.value)}
+              onChange={(e) => handleOnChange(e.target.value)}
             />
           <br />
          Can't come up with a Japanese sentence? <br />
