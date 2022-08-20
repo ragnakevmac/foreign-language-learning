@@ -27,6 +27,7 @@ function App() {
 
     Axios.post(url, data).then((res) => {
       generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
+      console.log(res.data);
     }).catch((error) => {
       console.log(error);
     });
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-      <Intro person="Kevin" />
+      <Intro person="" />
       <div className="textAreas">
         <TextForm onSubmitTexts={displaySubmittedText} />
       </div>

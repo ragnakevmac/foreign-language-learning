@@ -26,7 +26,6 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
       Axios.get('generation').then((res) => {
         setGeneratedText(res.data.ja);
         setGeneratedTextEngVer(res.data.en);
-        console.log(res.data.en);
       }).catch((error) => {
         console.log(error);
       });
