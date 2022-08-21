@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Axios from 'axios';
+import Slider from '@mui/material/Slider';
 import { TextFormProps } from '../models/textFormProps';
 import '../App.css'
 
@@ -12,18 +13,20 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
     const [generatedText, setGeneratedText] = useState<string>('');
     const [generatedTextEngVerFromWanikani, setGeneratedTextEngVer] = useState<string>('');
 
+    const [sliderValues, setSliderValues] = useState<number | number[]>([0, 100]);
+
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         const textToTranslate = inputRefTextToTranslate.current!.value;
         const translatedText = inputRefTranslatedText.current!.value;
-        onSubmitTexts({textToTranslate, translatedText, generatedTextEngVerFromWanikani}); //display
+        onSubmitTexts({textToTranslate, translatedText, generatedTextEngVerFromWanikani, sliderValues}); //display
     }
 
     function handleGenerate(e: React.MouseEvent<HTMLButtonElement>) {
       e.preventDefault();
 
-      Axios.get('generation').then((res) => {
+      Axios.get('generation', { params: { difficultyRange:  sliderValues} }).then((res) => {
         setGeneratedText(res.data.ja);
         setGeneratedTextEngVer(res.data.en);
       }).catch((error) => {
@@ -36,6 +39,15 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
       setGeneratedTextEngVer(''); //reset
     }
 
+    const handleSlider = (e: Event, val: number | number[], activeThumb: number) => {
+      e.preventDefault();
+      console.log(`e: ${e}`);
+      console.log(`val: ${val}`);
+      console.log(`activeThumb: ${activeThumb}`);
+      setSliderValues(val);
+    }
+
+
 
     return (
       <div className='textForm'>
@@ -46,7 +58,7 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
             <br />
             <textarea 
               className='textToTranslateForm'
-              placeholder='Japanese text here'  
+              placeholder='Japanese text goes here'  
               required
               style={{width: "400px", height: "200px"}}
               ref={inputRefTextToTranslate}
@@ -55,24 +67,37 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
             />
           <br />
          Can't come up with a Japanese sentence? <br />
-         Click to generate random Japanese sentences: <br />
+         Click the "generate" button to generate random Japanese sentences. <br />
+         You can also adjust the slider to adjust the difficulty. <br />
+         <Slider
+            sx={{ height: '10%' }}
+            style={{
+              maxWidth: "280px",
+              marginRight: "40px",
+              marginTop: "10px"
+            }}
+            getAriaLabel={() => 'Difficulty range'}
+            value={sliderValues}
+            onChange={(e, val, activeThumb) => handleSlider(e, val, activeThumb)}
+            valueLabelDisplay="auto"
+          />
          <button onClick={handleGenerate}>Generate</button>            
 
           <br />
           <br />
           <br />
 
-          <label>Your English trasnlation:</label>
+          <label>Your English trasnlation for practice:</label>
             <br />
             <textarea 
               className='translatedTextForm'
-              placeholder='Write your translation here'  
+              placeholder='Write your English translation here'  
               required
               style={{width: "400px", height: "200px"}}
               ref={inputRefTranslatedText}
             />
           <br />
-         <button type='submit'>Submit</button>
+         <button type='submit'>Rate My Skills!</button>
         </form>
       </div>
     )

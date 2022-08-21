@@ -6,6 +6,7 @@ import TextForm from './components/TextForm';
 import TranslatedTextDisplay from './components/TranslatedTextDisplay';
 import TextToTranslateDisplay from './components/TextToTranslateDisplay';
 import SuggestedTranslationDisplay from './components/SuggestedTranslationDisplay';
+import ScoreDisplay from './components/ScoreDisplay';
 import { Texts } from './models/textFormProps';
 
 
@@ -15,8 +16,10 @@ function App() {
   const [translatedText, setTranslatedText] = useState<string>('');
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
+  const [score, setScore] = useState<string>('');
 
-  const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string) => {
+
+  const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string, sliderValues: number | number[]) => {
 
     const url = '/translation'
     const data = {
@@ -27,6 +30,9 @@ function App() {
 
     Axios.post(url, data).then((res) => {
       generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
+      let finalScore = res.data.finalScore
+      let score = finalScore.toString()
+      setScore(score)
       console.log(res.data);
     }).catch((error) => {
       console.log(error);
@@ -37,9 +43,10 @@ function App() {
   const displaySubmittedText = (texts: Texts) => {
     setTextToTranslate(texts.textToTranslate);
     setTranslatedText(texts.translatedText);
-    fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText, texts.generatedTextEngVerFromWanikani)
+    fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText, texts.generatedTextEngVerFromWanikani, texts.sliderValues)
     
   }
+
 
 
   return (
@@ -55,9 +62,12 @@ function App() {
       </div>
       <br />
       <br />
-      <TextToTranslateDisplay textToTranslate={textToTranslate} />
+      <ScoreDisplay score={score}/>
       <br />
-      <TranslatedTextDisplay translatedText={translatedText} />
+      <br />
+      {/* <TextToTranslateDisplay textToTranslate={textToTranslate} />
+      <br />
+      <TranslatedTextDisplay translatedText={translatedText} /> */}
 
         
     </div>
