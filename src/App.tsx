@@ -12,11 +12,18 @@ import { Texts } from './models/textFormProps';
 
 function App() {
 
+  interface EngDefs {
+
+  }
+
   const [textToTranslate, setTextToTranslate] = useState<string>('');
   const [translatedText, setTranslatedText] = useState<string>('');
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
   const [score, setScore] = useState<string>('');
+  const [japaneseScore, setJapaneseScore] = useState<string>('');
+  const [engDefinitions, setEngDefinitions] = useState<object>({});
+  // const [japaneseScore, setJapaneseScore] = useState<string>('');
 
 
   const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string, sliderValues: number | number[]) => {
@@ -30,13 +37,31 @@ function App() {
 
     Axios.post(url, data).then((res) => {
       generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
-      let finalScore = res.data.finalScore
-      let score = finalScore.toString()
-      setScore(score)
+      setScore(res.data.finalScore)
       console.log(res.data);
     }).catch((error) => {
       console.log(error);
     });
+
+
+
+
+    const urlJp = '/japanese-data'
+    const dataJp = {
+      textToTranslate: textToTranslate,
+      translatedText: translatedText,
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+    };
+
+    Axios.post(urlJp, dataJp).then((res) => {
+      
+      setJapaneseScore(res.data.japaneseScore);
+      setEngDefinitions(res.data.engDefinitions);
+
+    }).catch((error) => {
+      console.log(error);
+    });
+
     
   }
 
@@ -62,12 +87,14 @@ function App() {
       </div>
       <br />
       <br />
+      <br />
       <ScoreDisplay score={score}/>
       <br />
       <br />
-      {/* <TextToTranslateDisplay textToTranslate={textToTranslate} />
       <br />
-      <TranslatedTextDisplay translatedText={translatedText} /> */}
+      <TextToTranslateDisplay textToTranslate={engDefinitions} />
+      <br />
+      {/* <TranslatedTextDisplay translatedText={translatedText} /> */}
 
         
     </div>

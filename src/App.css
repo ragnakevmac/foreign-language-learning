@@ -48,14 +48,15 @@
 
 
 .textToTranslateDisplay {
-  color: black;
+  color: white;
 }
 
 .translatedTextDisplay {
-  color: black;
+  color: white;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300, 1fr)); */
 }
+
 
 
 /* .textForm {

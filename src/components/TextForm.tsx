@@ -20,7 +20,12 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
         e.preventDefault();
         const textToTranslate = inputRefTextToTranslate.current!.value;
         const translatedText = inputRefTranslatedText.current!.value;
-        onSubmitTexts({textToTranslate, translatedText, generatedTextEngVerFromWanikani, sliderValues}); //display
+        onSubmitTexts({
+          textToTranslate, 
+          translatedText, 
+          generatedTextEngVerFromWanikani, 
+          sliderValues
+        }); //display
     }
 
     function handleGenerate(e: React.MouseEvent<HTMLButtonElement>) {
@@ -81,7 +86,13 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
             onChange={(e, val, activeThumb) => handleSlider(e, val, activeThumb)}
             valueLabelDisplay="auto"
           />
-         <button onClick={handleGenerate}>Generate</button>            
+         <button 
+          onClick={handleGenerate}
+          style={{
+            minHeight: "40px",
+            paddingTop: "2px",
+          }}
+        >Generate</button>            
 
           <br />
           <br />
@@ -97,7 +108,12 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
               ref={inputRefTranslatedText}
             />
           <br />
-         <button type='submit'>Rate My Skills!</button>
+         <button 
+          type='submit'
+          style={{
+            padding: '8px'
+          }}
+        >Rate My Skills!</button>
         </form>
       </div>
     )
