@@ -3,8 +3,8 @@ import Axios from 'axios';
 import './App.css';
 import Intro from './components/Intro';
 import TextForm from './components/TextForm';
-import TranslatedTextDisplay from './components/TranslatedTextDisplay';
-import TextToTranslateDisplay from './components/TextToTranslateDisplay';
+import JapaneseTargetsDisplay from './components/JapaneseTargetsDisplay';
+import EngDefDisplay from './components/EngDefDisplay';
 import SuggestedTranslationDisplay from './components/SuggestedTranslationDisplay';
 import ScoreDisplay from './components/ScoreDisplay';
 import { Texts } from './models/textFormProps';
@@ -23,7 +23,7 @@ function App() {
   const [score, setScore] = useState<string>('');
   const [japaneseScore, setJapaneseScore] = useState<string>('');
   const [engDefinitions, setEngDefinitions] = useState<object>({});
-  // const [japaneseScore, setJapaneseScore] = useState<string>('');
+  const [japaneseTargets, setJapaneseTargets] = useState<object>({});
 
 
   const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string, sliderValues: number | number[]) => {
@@ -57,6 +57,7 @@ function App() {
       
       setJapaneseScore(res.data.japaneseScore);
       setEngDefinitions(res.data.engDefinitions);
+      setJapaneseTargets(res.data.japaneseTargets);
 
     }).catch((error) => {
       console.log(error);
@@ -92,9 +93,12 @@ function App() {
       <br />
       <br />
       <br />
-      <TextToTranslateDisplay textToTranslate={engDefinitions} />
+      {/* <JapaneseTargetsDisplay japaneseTargets={japaneseTargets} />
       <br />
-      {/* <TranslatedTextDisplay translatedText={translatedText} /> */}
+      <br />
+      <br /> */}
+      <EngDefDisplay engDefinitions={engDefinitions} />
+      <br />
 
         
     </div>

@@ -111,7 +111,8 @@ function TextForm({ onSubmitTexts }: TextFormProps): JSX.Element {
          <button 
           type='submit'
           style={{
-            padding: '8px'
+            padding: '8px',
+            marginTop: '6px'
           }}
         >Rate My Skills!</button>
         </form>

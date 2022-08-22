@@ -47,11 +47,11 @@
 }
 
 
-.textToTranslateDisplay {
+.engDefinitions {
   color: white;
 }
 
-.translatedTextDisplay {
+.japaneseTargets {
   color: white;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300, 1fr)); */
