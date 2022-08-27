@@ -3,21 +3,24 @@ import React from 'react';
 import '../App.css'
 
 
-function EngDefDisplay({ engDefinitions }: any): JSX.Element {
-    console.log(engDefinitions);
+function EngDefDisplay({ engDefinitionsArray }: any): JSX.Element {
+
+    let engDefinitions = engDefinitionsArray[0]
+    let engDefinitionsCame = engDefinitionsArray[1]
+    let tokenizedJapaneseSentenceArray = engDefinitionsArray[2]
+
+    console.log(`engDefinitions: ${engDefinitions}`);
+
     return (
         <div className='engDefinitionsDisplay'>
-            <h1>English Meanings:</h1> 
-            <hr />
-            <br />
-            <div style={{color: 'white'}}>{Object.keys(engDefinitions).map((key, index) => {
+            {engDefinitionsCame && <h1>English Meanings:</h1>}
+            <div style={{color: 'white'}}>{Object.keys(tokenizedJapaneseSentenceArray).map((key, index) => {
                 return (
                 <div key={index}>
                     
-                   <h1>{key}:</h1> <h3>{engDefinitions[key].map((txt: any, index: number) => <p key={index}>{txt}</p>)}</h3>
+                   <h1><u>{tokenizedJapaneseSentenceArray[index]}</u></h1><h3>{engDefinitions[tokenizedJapaneseSentenceArray[index]].map((txt: any, index: number) => <p key={index}>{txt}</p>)}</h3>
+                   <br />
                     
-
-                    <hr />
                 </div>
                 );
             })}</div>

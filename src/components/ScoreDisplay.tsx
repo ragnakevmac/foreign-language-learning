@@ -3,6 +3,9 @@ import Score from '../models/score';
 
 
 function ScoreDisplay({ score }: Score): JSX.Element {
+    if (score === ''){
+        return <div></div>
+    }
     return (
         <div className='scoreDisplay'>
             <h1>YOUR SCORE:</h1>

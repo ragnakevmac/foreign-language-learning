@@ -4,6 +4,7 @@ import './App.css';
 import Intro from './components/Intro';
 import TextForm from './components/TextForm';
 import JapaneseTargetsDisplay from './components/JapaneseTargetsDisplay';
+import EnglishTargetsDisplay from './components/EnglishTargetsDisplay';
 import EngDefDisplay from './components/EngDefDisplay';
 import SuggestedTranslationDisplay from './components/SuggestedTranslationDisplay';
 import ScoreDisplay from './components/ScoreDisplay';
@@ -22,8 +23,23 @@ function App() {
 
   const [score, setScore] = useState<string>('');
   const [japaneseScore, setJapaneseScore] = useState<string>('');
+
   const [engDefinitions, setEngDefinitions] = useState<object>({});
   const [japaneseTargets, setJapaneseTargets] = useState<object>({});
+
+  const [engDefinitionsCame, setEngDefinitionsCame] = useState<boolean>(false);
+  const [japaneseTargetsCame, setJapaneseTargetsCame] = useState<boolean>(false);
+  const [englishTargetsCame, setEnglishTargetsCame] = useState<boolean>(false);
+
+
+  const [translatedTextArray, setTranslatedTextArray] = useState<string[]>([]);
+  const [suggestedTranslationArray, setSuggestedTranslationArray] = useState<string[]>([]);
+
+  const [suggestedTranslationBoolsArray, setSuggestedTranslationBoolsArray] = useState<boolean[]>([]);
+
+
+  const [tokenizedJapaneseSentenceArray, setTokenizedJapaneseSentenceArray] = useState<string[]>([])
+
 
 
   const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string, sliderValues: number | number[]) => {
@@ -38,7 +54,23 @@ function App() {
     Axios.post(url, data).then((res) => {
       generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
       setScore(res.data.finalScore)
-      console.log(res.data);
+
+
+
+      setEnglishTargetsCame(true);
+      setSuggestedTranslationBoolsArray(res.data.suggestedTranslationBoolsArray);
+      setTranslatedTextArray(res.data.translatedTextArray);
+      setSuggestedTranslationArray(res.data.suggestedTranslationArray);
+
+      // console.log(`res.data.suggestedTranslationBoolsArray: ${res.data.suggestedTranslationBoolsArray}`)
+
+
+      // generatedTextEngVerFromWanikani === '' ? setSuggestedTranslationArray(suggestedTranslation.split(" ")) : setSuggestedTranslationArray(generatedTextEngVerFromWanikani.split(" "));
+      
+      
+
+
+
     }).catch((error) => {
       console.log(error);
     });
@@ -50,14 +82,26 @@ function App() {
     const dataJp = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
-      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani,
+      suggestedTranslation: suggestedTranslation
     };
 
     Axios.post(urlJp, dataJp).then((res) => {
-      
+
       setJapaneseScore(res.data.japaneseScore);
       setEngDefinitions(res.data.engDefinitions);
       setJapaneseTargets(res.data.japaneseTargets);
+
+      setEngDefinitionsCame(true);
+      setJapaneseTargetsCame(true);
+
+      setTokenizedJapaneseSentenceArray(res.data.tokenizedJapaneseSentenceArray);
+
+
+
+
+      
+
 
     }).catch((error) => {
       console.log(error);
@@ -89,15 +133,19 @@ function App() {
       <br />
       <br />
       <br />
-      <ScoreDisplay score={score}/>
+      <ScoreDisplay score={score}/> 
       <br />
       <br />
       <br />
-      {/* <JapaneseTargetsDisplay japaneseTargets={japaneseTargets} />
+      <EnglishTargetsDisplay englishTargetsArray={[translatedTextArray, suggestedTranslationArray, suggestedTranslationBoolsArray, englishTargetsCame]} />
       <br />
       <br />
-      <br /> */}
-      <EngDefDisplay engDefinitions={engDefinitions} />
+      <br />
+      <JapaneseTargetsDisplay japaneseTargetsArray={[japaneseTargets, japaneseTargetsCame, tokenizedJapaneseSentenceArray]} />
+      <br />
+      <br />
+      <br />
+      <EngDefDisplay engDefinitionsArray={[engDefinitions, engDefinitionsCame, tokenizedJapaneseSentenceArray]} />
       <br />
 
         
