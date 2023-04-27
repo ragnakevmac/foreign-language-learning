@@ -1,3 +1,3 @@
 export default interface SuggestedTranslation {
-    suggestedTranslation: string
+    suggestedTranslation: string;
 }

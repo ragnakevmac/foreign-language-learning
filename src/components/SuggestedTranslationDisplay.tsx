@@ -9,8 +9,6 @@ function SuggestedTranslationDisplay({ suggestedTranslation }: SuggestedTranslat
 
     return (
         <div className='suggestedTranslationDisplay'>
-            Display of suggested translation:
-            <br />
             <textarea 
             //   className='translatedTextForm'
               placeholder='Your suggested translation will appear here'  

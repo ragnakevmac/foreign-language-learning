@@ -8,6 +8,7 @@ import EnglishTargetsDisplay from './components/EnglishTargetsDisplay';
 import EngDefDisplay from './components/EngDefDisplay';
 import SuggestedTranslationDisplay from './components/SuggestedTranslationDisplay';
 import ScoreDisplay from './components/ScoreDisplay';
+import Tabs from './components/Tabs';
 import { Texts } from './models/textFormProps';
 
 
@@ -78,24 +79,24 @@ function App() {
 
 
 
-    const urlJp = '/japanese-data'
-    const dataJp = {
-      textToTranslate: textToTranslate,
-      translatedText: translatedText,
-      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani,
-      suggestedTranslation: suggestedTranslation
-    };
+    // const urlJp = '/japanese-data'
+    // const dataJp = {
+    //   textToTranslate: textToTranslate,
+    //   translatedText: translatedText,
+    //   generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani,
+    //   suggestedTranslation: suggestedTranslation
+    // };
 
-    Axios.post(urlJp, dataJp).then((res) => {
+    // Axios.post(urlJp, dataJp).then((res) => {
 
-      setJapaneseScore(res.data.japaneseScore);
-      setEngDefinitions(res.data.engDefinitions);
-      setJapaneseTargets(res.data.japaneseTargets);
+    //   setJapaneseScore(res.data.japaneseScore);
+    //   setEngDefinitions(res.data.engDefinitions);
+    //   setJapaneseTargets(res.data.japaneseTargets);
 
-      setEngDefinitionsCame(true);
-      setJapaneseTargetsCame(true);
+    //   setEngDefinitionsCame(true);
+    //   setJapaneseTargetsCame(true);
 
-      setTokenizedJapaneseSentenceArray(res.data.tokenizedJapaneseSentenceArray);
+    //   setTokenizedJapaneseSentenceArray(res.data.tokenizedJapaneseSentenceArray);
 
 
 
@@ -103,9 +104,9 @@ function App() {
       
 
 
-    }).catch((error) => {
-      console.log(error);
-    });
+    // }).catch((error) => {
+    //   console.log(error);
+    // });
 
     
   }
@@ -125,11 +126,10 @@ function App() {
       <div className="textAreas">
         <TextForm onSubmitTexts={displaySubmittedText} />
       </div>
-      <br />
-      <br />
-      <div className="suggestedTranslation">
+      {/* <div className="suggestedTranslation">
         <SuggestedTranslationDisplay suggestedTranslation={suggestedTranslation} />
-      </div>
+      </div> */}
+      <Tabs suggestedTranslation={suggestedTranslation} />
       <br />
       <br />
       <br />
@@ -147,6 +147,7 @@ function App() {
       <br />
       <EngDefDisplay engDefinitionsArray={[engDefinitions, engDefinitionsCame, tokenizedJapaneseSentenceArray]} />
       <br />
+      
 
         
     </div>
