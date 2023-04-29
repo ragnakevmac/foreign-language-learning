@@ -5,7 +5,10 @@ import "../App.css";
 
 
 
-function Tabs({ suggestedTranslation }: SuggestedTranslation): JSX.Element {
+
+function Tabs({ suggestedTranslation, attemptAnalysis }: SuggestedTranslation & { attemptAnalysis: string }): JSX.Element {
+
+      
 
   const [toggleState, setToggleState] = useState<number>(1);
 
@@ -27,7 +30,8 @@ function Tabs({ suggestedTranslation }: SuggestedTranslation): JSX.Element {
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
-          Tab 2
+          Attempt<br />
+          Analysis
         </button>
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
@@ -49,10 +53,8 @@ function Tabs({ suggestedTranslation }: SuggestedTranslation): JSX.Element {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>Content 2</h2>
-          <hr />
           <p>
-            TAB CONTENT 2
+            {attemptAnalysis ? attemptAnalysis : 'loading...'}
           </p>
         </div>
 

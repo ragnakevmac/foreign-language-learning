@@ -22,6 +22,8 @@ function App() {
   const [translatedText, setTranslatedText] = useState<string>('');
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
+  const [attemptAnalysis, setAttemptAnalysis] = useState<string>('');
+
   const [score, setScore] = useState<string>('');
   const [japaneseScore, setJapaneseScore] = useState<string>('');
 
@@ -70,6 +72,24 @@ function App() {
       
       
 
+
+
+    }).catch((error) => {
+      console.log(error);
+    });
+
+
+
+
+    const url_analysis = '/analysis'
+    const data_analysis = {
+      textToTranslate: textToTranslate,
+      translatedText: translatedText,
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+    };
+
+    Axios.post(url_analysis, data_analysis).then((res) => {
+      setAttemptAnalysis(res.data.attemptAnalysis)
 
 
     }).catch((error) => {
@@ -129,7 +149,22 @@ function App() {
       {/* <div className="suggestedTranslation">
         <SuggestedTranslationDisplay suggestedTranslation={suggestedTranslation} />
       </div> */}
-      <Tabs suggestedTranslation={suggestedTranslation} />
+      <Tabs suggestedTranslation={suggestedTranslation} attemptAnalysis={attemptAnalysis} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       <br />
       <br />
