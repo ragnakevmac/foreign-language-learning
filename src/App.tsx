@@ -23,6 +23,7 @@ function App() {
   const [suggestedTranslation, setSuggestedTranslation] = useState<string>('');
 
   const [attemptAnalysis, setAttemptAnalysis] = useState<string>('');
+  const [hint, setHint] = useState<string>('');
 
   const [score, setScore] = useState<string>('');
   const [japaneseScore, setJapaneseScore] = useState<string>('');
@@ -98,6 +99,23 @@ function App() {
 
 
 
+    // const url_hint = '/hint'
+    // const data_hint = {
+    //   textToTranslate: textToTranslate,
+    //   translatedText: translatedText,
+    //   generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+    // };
+
+    // Axios.post(url_hint, data_hint).then((res) => {
+
+    //   setHint(res.data.hint)
+
+
+    // }).catch((error) => {
+    //   console.log(error);
+    // });
+
+
 
     // const urlJp = '/japanese-data'
     // const dataJp = {
@@ -135,7 +153,30 @@ function App() {
     setTextToTranslate(texts.textToTranslate);
     setTranslatedText(texts.translatedText);
     fetchSuggestedTranslation(texts.textToTranslate, texts.translatedText, texts.generatedTextEngVerFromWanikani, texts.sliderValues)
-    
+  }
+
+
+  const fetchHint = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string) => {
+    const url_hint = '/hint'
+    const data_hint = {
+      textToTranslate: textToTranslate,
+      translatedText: translatedText,
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+    };
+
+    Axios.post(url_hint, data_hint).then((res) => {
+
+      setHint(res.data.hint)
+
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+
+  const handleHint = (texts: Texts) => {
+    fetchHint(texts.textToTranslate, texts.translatedText, texts.generatedTextEngVerFromWanikani);
   }
 
 
@@ -144,11 +185,13 @@ function App() {
     <div className="App">
       <Intro person="" />
       <div className="textAreas">
-        <TextForm onSubmitTexts={displaySubmittedText} />
+        <TextForm onSubmitTexts={displaySubmittedText} onHandleHint={handleHint} hint={hint}/>
       </div>
+
       {/* <div className="suggestedTranslation">
         <SuggestedTranslationDisplay suggestedTranslation={suggestedTranslation} />
       </div> */}
+
       <Tabs suggestedTranslation={suggestedTranslation} attemptAnalysis={attemptAnalysis} />
       <br />
       <br />
