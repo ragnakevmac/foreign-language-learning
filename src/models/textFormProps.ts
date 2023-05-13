@@ -6,7 +6,12 @@ export interface Texts {
 }
 
 export interface TextFormProps {
-    onSubmitTexts: (texts: Texts) => void;
-    onHandleHint: (texts: Texts) => void;
-    hint: string;
-  }
+  onSubmitTexts: (texts: Texts) => void;
+  onHandleHint: (texts: Texts) => void;
+  hint: string;
+  onUpdateTextToTranslate: (text: string) => void;
+}
+
+
+
+  

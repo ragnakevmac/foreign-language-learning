@@ -1,17 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
 import Slider from '@mui/material/Slider';
 import { TextFormProps } from '../models/textFormProps';
 import '../App.css';
 import HintBox from './HintBox';
 
-function TextForm({ onSubmitTexts, onHandleHint, hint }: TextFormProps): JSX.Element {
+const TextForm = ({ onSubmitTexts, onHandleHint, hint, onUpdateTextToTranslate }: TextFormProps) => {
   const inputRefTextToTranslate = useRef<HTMLTextAreaElement>(null);
   const inputRefTranslatedText = useRef<HTMLTextAreaElement>(null);
   const [generatedText, setGeneratedText] = useState<string>('');
   const [generatedTextEngVerFromWanikani, setGeneratedTextEngVer] = useState<string>('');
   const [sliderValues, setSliderValues] = useState<number | number[]>([0, 100]);
   const [hintVisible, setHintVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (hint) {
+      setHintVisible(true);
+    } else {
+      setHintVisible(false);
+    }
+  }, [hint]);
+
+
+  
+  
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +45,7 @@ function TextForm({ onSubmitTexts, onHandleHint, hint }: TextFormProps): JSX.Ele
       .then((res) => {
         setGeneratedText(res.data.ja);
         setGeneratedTextEngVer(res.data.en);
+        onUpdateTextToTranslate(res.data.ja);
       })
       .catch((error) => {
         console.log(error);
@@ -41,6 +55,7 @@ function TextForm({ onSubmitTexts, onHandleHint, hint }: TextFormProps): JSX.Ele
   const handleOnChange = (val: string) => {
     setGeneratedText(val);
     setGeneratedTextEngVer(''); // reset
+    onUpdateTextToTranslate(val);
   };
 
   const handleSlider = (e: Event, val: number | number[], activeThumb: number) => {
@@ -51,6 +66,7 @@ function TextForm({ onSubmitTexts, onHandleHint, hint }: TextFormProps): JSX.Ele
   const handleHintBoxHide = () => {
     setHintVisible(false);
   };
+  
 
   const handleShowHint = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -63,8 +79,9 @@ function TextForm({ onSubmitTexts, onHandleHint, hint }: TextFormProps): JSX.Ele
       generatedTextEngVerFromWanikani,
       sliderValues,
     });
-    setHintVisible(!hintVisible);
+    // setHintVisible(!hintVisible);
   };
+  
   
   
 

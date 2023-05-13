@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Axios from 'axios';
 import './App.css';
 import Intro from './components/Intro';
@@ -10,13 +10,34 @@ import SuggestedTranslationDisplay from './components/SuggestedTranslationDispla
 import ScoreDisplay from './components/ScoreDisplay';
 import Tabs from './components/Tabs';
 import { Texts } from './models/textFormProps';
+import WordPopup from './components/WordPopup';
 
 
 function App() {
 
-  interface EngDefs {
 
+
+  interface Word {
+    text: string;
+    furigana: string;
+    meaning: string;
   }
+  
+  
+  // interface WordPopupProps {
+  //   words: Word[];
+  //   furiganaWords: Word[];
+  // }
+
+  interface WordArrayProps {
+    words: string[];
+  }
+
+  interface WordReadings {
+    [key: string]: string;
+  }
+
+
 
   const [textToTranslate, setTextToTranslate] = useState<string>('');
   const [translatedText, setTranslatedText] = useState<string>('');
@@ -44,9 +65,20 @@ function App() {
 
   const [tokenizedJapaneseSentenceArray, setTokenizedJapaneseSentenceArray] = useState<string[]>([])
 
+  // const [words, setWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<string[]>([]);
+
+  const [wordReadings, setWordReadings] = useState<WordReadings>({});
+
+
 
 
   const fetchSuggestedTranslation = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string, sliderValues: number | number[]) => {
+
+    setSuggestedTranslation('')
+    setAttemptAnalysis('')
+    setWords([])
+
 
     const url = '/translation'
     const data = {
@@ -96,6 +128,26 @@ function App() {
     }).catch((error) => {
       console.log(error);
     });
+
+
+
+
+
+
+    // const url_morpho_analysis = '/morphoanalysis'
+    // const data_morpho_analysis = {
+    //   textToTranslate: textToTranslate,
+    //   translatedText: translatedText,
+    //   generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+    // };
+
+    // Axios.post(url_morpho_analysis, data_morpho_analysis).then((res) => {
+    //   setWords(res.data.morphoAnalysis)
+
+
+    // }).catch((error) => {
+    //   console.log(error);
+    // });
 
 
 
@@ -181,18 +233,80 @@ function App() {
 
 
 
+
+  const handleReadingDisplay = (wordClicked: string) => {
+    const url_reading = '/reading'
+    const data_reading = {
+      wordClicked: wordClicked,
+      textToTranslate: textToTranslate,
+    };
+
+    Axios.post(url_reading, data_reading).then((res) => {
+
+      setWordReadings(res.data.reading)
+
+      console.log("DICT!!!!!!!!", wordReadings)
+
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+
+
+  const handleTokenize = () => {
+    const url_tokenize = '/tokenize'
+    const data_tokenize = {
+      textToTranslate: textToTranslate,
+    };
+
+    Axios.post(url_tokenize, data_tokenize).then((res) => {
+
+      setWords(res.data.tokenizedArray);
+
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+
+  const updateTextToTranslate = (val: string) => {
+    setTextToTranslate(val);
+  }
+
+
+
   return (
     <div className="App">
       <Intro person="" />
       <div className="textAreas">
-        <TextForm onSubmitTexts={displaySubmittedText} onHandleHint={handleHint} hint={hint}/>
+      <TextForm
+        onSubmitTexts={displaySubmittedText}
+        onHandleHint={handleHint}
+        hint={hint}
+        onUpdateTextToTranslate={updateTextToTranslate}
+      />
+
       </div>
 
       {/* <div className="suggestedTranslation">
         <SuggestedTranslationDisplay suggestedTranslation={suggestedTranslation} />
       </div> */}
 
-      <Tabs suggestedTranslation={suggestedTranslation} attemptAnalysis={attemptAnalysis} />
+      <Tabs 
+        suggestedTranslation={suggestedTranslation} 
+        attemptAnalysis={attemptAnalysis} 
+        words={words} 
+        wordReadings={wordReadings}
+        onHandleReadingDisplay={handleReadingDisplay}
+        onHandleTokenize={handleTokenize}
+        textToTranslate={textToTranslate}
+      />
+
+
+
       <br />
       <br />
       <br />
@@ -211,7 +325,7 @@ function App() {
       <br />
       <br />
       <br />
-      <ScoreDisplay score={score}/> 
+      {/* <ScoreDisplay score={score}/> 
       <br />
       <br />
       <br />
@@ -224,7 +338,7 @@ function App() {
       <br />
       <br />
       <EngDefDisplay engDefinitionsArray={[engDefinitions, engDefinitionsCame, tokenizedJapaneseSentenceArray]} />
-      <br />
+      <br /> */}
       
 
         

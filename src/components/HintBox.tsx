@@ -43,7 +43,6 @@ const HintBox: React.FC<HintBoxProps> = ({
       onHide();
     }
   };
-  
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -52,11 +51,10 @@ const HintBox: React.FC<HintBoxProps> = ({
     };
   }, [onHide]);
 
-  if (!visible || !targetRef.current) {
-    return null;
-  }
-
-  const hintBoxStyles = calculatePosition();
+  const hintBoxStyles = {
+    ...calculatePosition(),
+    display: visible && targetRef.current ? "block" : "none",
+  };
 
   return (
     <div className="hintbox-hint" ref={hintBoxRef} style={hintBoxStyles}>

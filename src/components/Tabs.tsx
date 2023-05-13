@@ -2,19 +2,51 @@ import React, { useState } from "react";
 import SuggestedTranslationDisplay from '../components/SuggestedTranslationDisplay';
 import SuggestedTranslation from '../models/suggestedTranslation';
 import "../App.css";
+import WordArray from '../components/WordArray';
+import WordPopup from '../components/WordPopup';
+
+interface Word {
+  text: string;
+  furigana: string;
+  meaning: string;
+}
+
+// interface WordPopupProps {
+//   words: Word[];
+// }
+
+interface WordArrayProps {
+  words: string[];
+}
+
+interface WordReadings {
+  wordReadings: { [key: string]: string };
+}
+
+interface TabsProps extends SuggestedTranslation, WordArrayProps, WordReadings {
+  attemptAnalysis: string;
+  onHandleReadingDisplay: (wordClicked: string) => void;
+  onHandleTokenize: () => void;
+  textToTranslate: string;
+}
 
 
 
 
-function Tabs({ suggestedTranslation, attemptAnalysis }: SuggestedTranslation & { attemptAnalysis: string }): JSX.Element {
 
-      
+function Tabs({ suggestedTranslation, attemptAnalysis, words, wordReadings, onHandleTokenize, onHandleReadingDisplay }: TabsProps): JSX.Element {
+
 
   const [toggleState, setToggleState] = useState<number>(1);
 
   const toggleTab = (index: number): void => {
     setToggleState(index);
+    if (index === 3) {
+      onHandleTokenize();
+    }
   };
+  
+  
 
   return (
     <div className="container">
@@ -37,7 +69,8 @@ function Tabs({ suggestedTranslation, attemptAnalysis }: SuggestedTranslation & 
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
         >
-          Tab 3
+          Morphological<br />
+          Analysis
         </button>
       </div>
 
@@ -53,7 +86,7 @@ function Tabs({ suggestedTranslation, attemptAnalysis }: SuggestedTranslation & 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <p>
+          <p className="attemptAnalysis">
             {attemptAnalysis ? attemptAnalysis : 'loading...'}
           </p>
         </div>
@@ -61,10 +94,15 @@ function Tabs({ suggestedTranslation, attemptAnalysis }: SuggestedTranslation & 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <h2>Content 3</h2>
-          <hr />
           <p>
-            TAB CONTENT 3
+            {/* {words ? <WordPopup words={words} /> : 'loading...'} */}
+            {/* <WordPopup words={words} /> */}
+            <WordArray
+              words={words}
+              wordReadings={wordReadings}
+              onHandleReadingDisplay={onHandleReadingDisplay}
+            />
+
           </p>
         </div>
       </div>
