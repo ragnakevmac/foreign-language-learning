@@ -46,29 +46,6 @@
   color: white;
 }
 
-
-.engDefinitions {
-  color: white;
-}
-
-.japaneseTargets {
-  color: white;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300, 1fr)); */
-}
-
-
-
-/* .textForm {
-  padding: 10px;
-}
-
-.textAreas{
-  display:flex; 
-  flex-direction:row;
-  justify-content: center;
-} */
-
 textarea {
   background-color: rgb(42, 41, 44);
   color: white;
@@ -112,41 +89,6 @@ textarea {
 
 
 
-
-
-
-
-
-/* .word {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  margin-right: 5px;
-  font-size: 32px; 
-}
-
-
-
-.word rt {
-  font-size: 20px; 
-  color:rgb(88, 147, 241);
-}
-
-.popup {
-  display: inline;
-  position: fixed;
-  background-color: #f1f1f1;
-  color: black;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  white-space: nowrap;
-}
-
-.wordPopupContainer {
-  margin-top: 50px; 
-} */
 
 .word {
   cursor: pointer;
@@ -192,10 +134,8 @@ textarea {
   position: relative;
   width: 400px;
   height: 200px;
-  /* background: rgb(42, 41, 44); */
   margin: 100px auto 0;
   word-break: break-all;
-  /* border: 1px solid rgba(0, 0, 0, 0.274); */
 }
 
 .bloc-tabs {
@@ -242,8 +182,6 @@ textarea {
   flex-grow : 1;
 }
 .content {
-  /* background: rgb(42, 41, 44); */
-  /* padding: 20px; */
   width: 100%;
   height: 100%;
   display: none;

@@ -12,7 +12,7 @@ function SuggestedTranslationDisplay({ suggestedTranslation }: SuggestedTranslat
             <textarea 
             //   className='translatedTextForm'
               placeholder='Your suggested translation will appear here'  
-              style={{width: "400px", height: "200px"}}
+              style={{width: "400px", height: "200px" }}
               value={suggestedTranslation}
               readOnly
             />

@@ -41,7 +41,7 @@ const TextForm = ({ onSubmitTexts, onHandleHint, hint, onUpdateTextToTranslate }
   const handleGenerate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    Axios.get('generation', { params: { difficultyRange: sliderValues } })
+    Axios.get('https://tensaihonyaku.herokuapp.com/generation', { params: { difficultyRange: sliderValues } })
       .then((res) => {
         setGeneratedText(res.data.ja);
         setGeneratedTextEngVer(res.data.en);

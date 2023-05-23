@@ -3,17 +3,12 @@ import SuggestedTranslationDisplay from '../components/SuggestedTranslationDispl
 import SuggestedTranslation from '../models/suggestedTranslation';
 import "../App.css";
 import WordArray from '../components/WordArray';
-import WordPopup from '../components/WordPopup';
 
 interface Word {
   text: string;
   furigana: string;
   meaning: string;
 }
-
-// interface WordPopupProps {
-//   words: Word[];
-// }
 
 interface WordArrayProps {
   words: string[];
@@ -95,8 +90,6 @@ function Tabs({ suggestedTranslation, attemptAnalysis, words, wordReadings, onHa
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <p>
-            {/* {words ? <WordPopup words={words} /> : 'loading...'} */}
-            {/* <WordPopup words={words} /> */}
             <WordArray
               words={words}
               wordReadings={wordReadings}
