@@ -8,6 +8,7 @@ import Tabs from './components/Tabs';
 import { Texts } from './models/textFormProps';
 
 
+
 function App() {
 
 
@@ -57,8 +58,7 @@ function App() {
     setAttemptAnalysis('')
     setWords([])
 
-
-    const url = 'https://tensaihonyaku.herokuapp.com/translation'
+    const url = '/translation'
     const data = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
@@ -66,6 +66,7 @@ function App() {
     };
 
     Axios.post(url, data).then((res) => {
+      console.log('RES: ', res)
       generatedTextEngVerFromWanikani === '' ? setSuggestedTranslation(res.data.suggestedTranslation) : setSuggestedTranslation(generatedTextEngVerFromWanikani);
 
 
@@ -82,11 +83,11 @@ function App() {
 
 
 
-    const url_analysis = 'https://tensaihonyaku.herokuapp.com/analysis'
+    const url_analysis = '/analysis'
     const data_analysis = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
-      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani
+      generatedTextEngVerFromWanikani: generatedTextEngVerFromWanikani === '' ? suggestedTranslation : generatedTextEngVerFromWanikani
     };
 
     Axios.post(url_analysis, data_analysis).then((res) => {
@@ -109,7 +110,7 @@ function App() {
 
 
   const fetchHint = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string) => {
-    const url_hint = 'https://tensaihonyaku.herokuapp.com/hint'
+    const url_hint = '/hint'
     const data_hint = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
@@ -135,7 +136,7 @@ function App() {
 
 
   const handleReadingDisplay = (wordClicked: string) => {
-    const url_reading = 'https://tensaihonyaku.herokuapp.com/reading'
+    const url_reading = '/reading'
     const data_reading = {
       wordClicked: wordClicked,
       textToTranslate: textToTranslate,
@@ -156,7 +157,7 @@ function App() {
 
 
   const handleTokenize = () => {
-    const url_tokenize = 'https://tensaihonyaku.herokuapp.com/tokenize'
+    const url_tokenize = '/tokenize'
     const data_tokenize = {
       textToTranslate: textToTranslate,
     };
@@ -190,10 +191,6 @@ function App() {
       />
 
       </div>
-
-      {/* <div className="suggestedTranslation">
-        <SuggestedTranslationDisplay suggestedTranslation={suggestedTranslation} />
-      </div> */}
 
       <Tabs 
         suggestedTranslation={suggestedTranslation} 
