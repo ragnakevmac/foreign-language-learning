@@ -58,7 +58,7 @@ function App() {
     setAttemptAnalysis('')
     setWords([])
 
-    const url = '/translation'
+    const url = 'https://tensaihonyaku-987e5c00ef21.herokuapp.com/translation'
     const data = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
@@ -83,7 +83,7 @@ function App() {
 
 
 
-    const url_analysis = '/analysis'
+    const url_analysis = 'https://tensaihonyaku-987e5c00ef21.herokuapp.com/analysis'
     const data_analysis = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
@@ -110,7 +110,7 @@ function App() {
 
 
   const fetchHint = (textToTranslate: string, translatedText: string, generatedTextEngVerFromWanikani: string) => {
-    const url_hint = '/hint'
+    const url_hint = 'https://tensaihonyaku-987e5c00ef21.herokuapp.com/hint'
     const data_hint = {
       textToTranslate: textToTranslate,
       translatedText: translatedText,
@@ -136,7 +136,7 @@ function App() {
 
 
   const handleReadingDisplay = (wordClicked: string) => {
-    const url_reading = '/reading'
+    const url_reading = 'https://tensaihonyaku-987e5c00ef21.herokuapp.com/reading'
     const data_reading = {
       wordClicked: wordClicked,
       textToTranslate: textToTranslate,
@@ -157,7 +157,7 @@ function App() {
 
 
   const handleTokenize = () => {
-    const url_tokenize = '/tokenize'
+    const url_tokenize = 'https://tensaihonyaku-987e5c00ef21.herokuapp.com/tokenize'
     const data_tokenize = {
       textToTranslate: textToTranslate,
     };
