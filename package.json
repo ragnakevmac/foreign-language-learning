@@ -2,7 +2,7 @@
   "name": "foreign-language-learning-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8765/",
+  "proxy": "https://tensaihonyaku-987e5c00ef21.herokuapp.com",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
